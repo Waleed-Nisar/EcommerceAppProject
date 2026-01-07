@@ -16,7 +16,6 @@ Production-grade E-Commerce REST API with JWT Authentication and Admin Panel bui
 ### Technical Features
 - Clean Architecture (Domain, Infrastructure, Application, API layers)
 - Repository Pattern with EF Core
-- Smart Seeding Strategy (Environment-aware)
 - Global Exception Handling
 - API Response Wrappers
 - Swagger UI with JWT support
@@ -30,81 +29,7 @@ Production-grade E-Commerce REST API with JWT Authentication and Admin Panel bui
 - Visual Studio 2022 or VS Code
 - Postman (optional, for API testing)
 
-## 🚀 Quick Start
 
-### 1. Clone and Setup
-
-```bash
-# The project structure is already set up with 4 class libraries:
-# - ECS.Domain (Entities & Enums)
-# - ECS.Infrastructure (Data & Repositories & Security)
-# - ECS.Application (Services & DTOs & ViewModels)
-# - ECS.API (REST API Controllers)
-# - ECS.Web (MVC Admin Panel)
-```
-
-### 2. Database Configuration
-
-**Connection String** (already in appsettings.json):
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ECommerceDB;Trusted_Connection=true;MultipleActiveResultSets=true"
-}
-```
-
-**Migrations** (Auto-applied on startup):
-```bash
-# Optional: Manual migration commands
-cd ECS.API
-dotnet ef migrations add InitialCreate --project ../ECS.Infrastructure
-dotnet ef database update --project ../ECS.Infrastructure
-```
-
-### 3. Run the API
-
-```bash
-cd ECS.API
-dotnet run
-```
-
-API will be available at: `https://localhost:7001`
-
-Swagger UI: `https://localhost:7001/swagger`
-
-### 4. Run the Admin Panel
-
-```bash
-cd ECS.Web
-dotnet run
-```
-
-Admin Panel: `https://localhost:7002`
-
-## 🔐 Authentication
-
-### JWT Token Flow
-
-1. **Register** → POST `/api/auth/register` (Customer role assigned)
-2. **Login** → POST `/api/auth/login` → Receive JWT + Refresh Token
-3. **Use Token** → Add `Authorization: Bearer {token}` header
-4. **Refresh** → POST `/api/auth/refresh` (when token expires after 15 min)
-
-### Development Credentials
-
-**API & Admin Panel:**
-```
-Admin:
-  Email: admin@ecommerce.com
-  Password: Admin@123
-
-Seller:
-  Email: seller@ecommerce.com
-  Password: Seller@123
-
-Customer:
-  Email: customer@ecommerce.com
-  Password: Customer@123
-```
 
 ## 📡 API Endpoints
 
@@ -176,30 +101,6 @@ DELETE /api/reviews/{id}           - Delete review (Admin/Owner)
 | Delete Product | ❌ | ❌ | ❌ | ✅ |
 | Manage Users | ❌ | ❌ | ❌ | ✅ |
 
-## 🌱 Smart Seeding Strategy
-
-The system uses environment-aware seeding:
-
-**1. Essential Data (Always runs):**
-- Roles (Admin, Seller, Customer, Guest)
-
-**2. Debug Users (DEBUG builds only):**
-```csharp
-#if DEBUG
-await DbSeeder.SeedDebugUsersAsync(userManager, roleManager);
-#endif
-```
-- Admin, Seller, Customer test accounts
-
-**3. Test Data (Development environment only):**
-```csharp
-if (app.Environment.IsDevelopment())
-{
-    await TestDataSeeder.SeedAsync(context);
-}
-```
-- 10 sample products
-- 5 categories
 
 ## 📊 Database Schema
 
@@ -214,69 +115,8 @@ if (app.Environment.IsDevelopment())
 - **Payment** - Payment records (mock)
 - **Review** - Product reviews with verified purchase flag
 
-## 🛠️ Configuration
-
-### JWT Settings (appsettings.json)
-```json
-{
-  "JwtSettings": {
-    "SecretKey": "YOUR_SECRET_KEY_MINIMUM_32_CHARACTERS",
-    "Issuer": "ECommerceAPI",
-    "Audience": "ECommerceClient",
-    "AccessTokenExpirationMinutes": 15,
-    "RefreshTokenExpirationDays": 7
-  }
-}
-```
-
-**⚠️ Production:** Replace `SecretKey` with a secure 256-bit key (32+ characters)
-
-### CORS Configuration
-```csharp
-options.AddPolicy("AllowAll", policy =>
-{
-    policy.AllowAnyOrigin()
-          .AllowAnyMethod()
-          .AllowAnyHeader();
-});
-```
-
-**⚠️ Production:** Restrict to specific origins
-
-## 📦 Project Structure
 
 ```
-ECommerceSystem/
-├── ECS.Domain/
-│   ├── Entities/        # Domain models
-│   └── Enums/          # Order status, payment methods, roles
-├── ECS.Infrastructure/
-│   ├── Data/           # DbContext, seeding
-│   ├── Repositories/   # Data access layer
-│   └── Security/       # JWT token generation
-├── ECS.Application/
-│   ├── Interfaces/     # Service contracts
-│   ├── Services/       # Business logic
-│   ├── DTOs/          # Data transfer objects
-│   └── ViewModels/    # MVC view models
-├── ECS.API/
-│   ├── Controllers/    # REST API endpoints
-│   ├── Middleware/     # Exception handling, JWT
-│   └── Program.cs      # API configuration
-└── ECS.Web/
-    ├── Controllers/    # MVC controllers
-    ├── Views/         # Razor views
-    └── wwwroot/       # Static files
-```
-
-## 🧪 Testing with Postman
-
-1. Import `ECommerce_API.postman_collection.json`
-2. Update `baseUrl` variable to your API URL
-3. Login with test credentials
-4. Token automatically saved to collection variable
-5. Test all endpoints with authentication
-
 ## 📈 Admin Dashboard Features
 
 - **Sales Overview** - Total sales, order count, pending orders
@@ -306,42 +146,9 @@ ECommerceSystem/
 6. Customers can only review purchased products
 7. Low stock alert when quantity < 10
 
-## 📝 API Response Format
 
-```json
-{
-  "success": true,
-  "message": "Operation successful",
-  "data": { ... },
-  "errors": []
-}
 ```
 
-## 🐛 Troubleshooting
 
-**Migration Issues:**
-```bash
-# Delete database and recreate
-dotnet ef database drop --project ECS.Infrastructure
-dotnet ef database update --project ECS.Infrastructure
-```
-
-**JWT Token Expired:**
-- Use refresh token endpoint
-- Or login again
-
-**Admin Panel Login Fails:**
-- Ensure user has Admin or Seller role
-- Check credentials match seeded users
-
-## 📄 License
-
-MIT License - Free to use for learning and commercial purposes
-
-## 👨‍💻 Author
-
-Generated with production-grade best practices for ASP.NET Core 8
-
----
 
 **🎉 You're ready to build! Run the API, test with Swagger, and explore the Admin Panel.**
