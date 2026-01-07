@@ -1,0 +1,108 @@
+﻿@model ECS.Application.DTOs.Orders.OrderDto
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <h2><i class="fas fa-receipt"></i> Order #@Model.OrderNumber</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Order Items</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>$@item.UnitPrice.ToString("N2")</td>
+                                <td>$@item.Subtotal.ToString("N2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                            <td>$@((Model.TotalAmount - Model.TaxAmount - Model.ShippingCost).ToString("N2"))</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Tax:</strong></td>
+                            <td>$@Model.TaxAmount.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Shipping:</strong></td>
+                            <td>$@Model.ShippingCost.ToString("N2")</td>
+                        </tr>
+                        <tr class="table-active">
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td><strong>$@Model.TotalAmount.ToString("N2")</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Order Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Customer:</strong><br />@Model.CustomerName</p>
+                <p><strong>Order Date:</strong><br />@Model.OrderDate.ToString("MMM dd, yyyy HH:mm")</p>
+                <p>
+                    <strong>Status:</strong><br />
+                    <span class="badge bg-@(Model.Status == "Pending" ? "warning" :
+                                                                     Model.Status == "Processing" ? "info" :
+                                                                     Model.Status == "Shipped" ? "primary" :
+                                                                     Model.Status == "Delivered" ? "success" : "danger")">
+                        @Model.Status
+                    </span>
+                </p>
+                @if (Model.ShippedDate.HasValue)
+                {
+                    <p><strong>Shipped:</strong><br />@Model.ShippedDate.Value.ToString("MMM dd, yyyy")</p>
+                }
+                @if (Model.DeliveredDate.HasValue)
+                {
+                    <p><strong>Delivered:</strong><br />@Model.DeliveredDate.Value.ToString("MMM dd, yyyy")</p>
+                }
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Shipping Address</h5>
+            </div>
+            <div class="card-body">
+                <address>
+                    @Model.ShippingAddress<br />
+                    @Model.City, @Model.PostalCode<br />
+                    @Model.Country
+                </address>
+            </div>
+        </div>
+    </div>
+</div>

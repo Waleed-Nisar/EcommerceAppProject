@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Domain", "ECS.Domain\ECS.Domain.csproj", "{D8161848-A290-4B40-B8BC-EA44069058CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Infrastructure", "ECS.Infrastructure\ECS.Infrastructure.csproj", "{CFF188ED-B52C-4597-8CD1-CA80BFDDEFE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Application", "ECS.Application\ECS.Application.csproj", "{65489560-9B2B-47C6-A8E4-1B8D130EF59E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.Web", "ECS.Web\ECS.Web.csproj", "{9BE312D6-4B57-49EF-A827-93913EDF49E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		ECommerce_APl.postman_collection.js = ECommerce_APl.postman_collection.js
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECS.API", "ECS.API\ECS.API.csproj", "{22A9067C-BCE8-496B-82AE-B4E274797128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8161848-A290-4B40-B8BC-EA44069058CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8161848-A290-4B40-B8BC-EA44069058CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8161848-A290-4B40-B8BC-EA44069058CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8161848-A290-4B40-B8BC-EA44069058CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFF188ED-B52C-4597-8CD1-CA80BFDDEFE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFF188ED-B52C-4597-8CD1-CA80BFDDEFE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFF188ED-B52C-4597-8CD1-CA80BFDDEFE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFF188ED-B52C-4597-8CD1-CA80BFDDEFE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65489560-9B2B-47C6-A8E4-1B8D130EF59E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65489560-9B2B-47C6-A8E4-1B8D130EF59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65489560-9B2B-47C6-A8E4-1B8D130EF59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65489560-9B2B-47C6-A8E4-1B8D130EF59E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE312D6-4B57-49EF-A827-93913EDF49E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE312D6-4B57-49EF-A827-93913EDF49E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE312D6-4B57-49EF-A827-93913EDF49E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE312D6-4B57-49EF-A827-93913EDF49E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A9067C-BCE8-496B-82AE-B4E274797128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A9067C-BCE8-496B-82AE-B4E274797128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A9067C-BCE8-496B-82AE-B4E274797128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A9067C-BCE8-496B-82AE-B4E274797128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A8C0A20-45B8-411E-AABC-F3777820319C}
+	EndGlobalSection
+EndGlobal

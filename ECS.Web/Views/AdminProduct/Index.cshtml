@@ -1,0 +1,121 @@
+﻿@model ECS.Application.ViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <h2><i class="fas fa-box"></i> Products</h2>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Product
+        </a>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form asp-action="Index" method="get" class="input-group">
+            <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Search products..." />
+            <button type="submit" class="btn btn-outline-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table id="productsTable" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            <img src="@(product.ImageUrl ?? "https://via.placeholder.com/50")"
+                                 alt="@product.Name" class="img-thumbnail" style="width: 50px; height: 50px;" />
+                        </td>
+                        <td>@product.Name</td>
+                        <td>@product.SKU</td>
+                        <td>@product.CategoryName</td>
+                        <td>$@product.Price.ToString("N2")</td>
+                        <td>
+                            @if (product.IsOutOfStock)
+                            {
+                                <span class="badge bg-danger">Out of Stock</span>
+                            }
+                            else if (product.IsLowStock)
+                            {
+                                <span class="badge bg-warning text-dark">@product.StockQuantity (Low)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">@product.StockQuantity</span>
+                            }
+                        </td>
+                        <td>
+                            @if (product.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-sm btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteProduct(@product.ProductId)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#productsTable').DataTable({
+                order: [[1, 'asc']]
+            });
+        });
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                $.ajax({
+                    url: '/AdminProduct/Delete/' + id,
+                    type: 'POST',
+                    success: function(result) {
+                        if (result.success) {
+                            location.reload();
+                        } else {
+                            alert(result.message);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+}
