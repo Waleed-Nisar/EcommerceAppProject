@@ -1,4 +1,4 @@
-﻿# E-Commerce System (ECS)
+﻿# E-Commerce Application
 
 Production-grade E-Commerce REST API with JWT Authentication and Admin Panel built with ASP.NET Core 8.
 
@@ -151,4 +151,3 @@ DELETE /api/reviews/{id}           - Delete review (Admin/Owner)
 
 
 
-**🎉 You're ready to build! Run the API, test with Swagger, and explore the Admin Panel.**
