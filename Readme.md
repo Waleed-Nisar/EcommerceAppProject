@@ -148,6 +148,19 @@ DELETE /api/reviews/{id}           - Delete review (Admin/Owner)
 
 
 ```
+## ScreenShots
+
+### Login Page
+<img width="1902" height="790" alt="image" src="https://github.com/user-attachments/assets/a2c5431d-a2ef-4a93-ab2d-5c6fecaab078" />
+
+### Dashboard 
+<img width="1919" height="785" alt="Screenshot 2026-01-14 082339" src="https://github.com/user-attachments/assets/860c40de-4220-40bc-b2e3-1fc662c006cf" />
+
+### Products
+<img width="1899" height="764" alt="Screenshot 2026-01-14 082412" src="https://github.com/user-attachments/assets/fce49662-0123-47eb-a304-46ae02b3c2e8" />
+
+### Users
+<img width="1902" height="790" alt="Screenshot 2026-01-14 082426" src="https://github.com/user-attachments/assets/20cdaa7e-3de4-47e7-90da-bc20ee08e7e5" />
 
 
 
